@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// 引入login index.vue组件
 import Login from '@/views/login'
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
     // 配置login路由
-    { path: '/', redirect: '/login' },
+    // { path: '/', redirect: '/login' },
     { name: 'login', path: '/login', component: Login }
   ] // 配置路由规则
 })
