@@ -1,4 +1,4 @@
-<template>
+ <template>
   <!-- 使用 v-loading  指定某个区域的加载效果 -->
   <div class="container" v-loading="loading">
     <el-card>
@@ -175,8 +175,8 @@ export default {
   list-style: none;
   overflow: hidden;
   li {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 140px;
     border: 1px dashed #ddd;
     float: left;
     margin-right: 50px;
@@ -190,7 +190,7 @@ export default {
     .fot {
       position: absolute;
       left: 0;
-      bottom: 0;
+      bottom: -13px;
       width: 100%;
       height: 30px;
       line-height: 30px;
