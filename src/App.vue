@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import LoginIndex from './views/login/index.vue'
+// import LoginIndex from './views/login/index.vue'
 export default {
   name: 'app',
   components: {
-    LoginIndex
+
   }
 }
 </script>

@@ -6,10 +6,10 @@
 
       <el-form ref="loginForm" status-icon="true" :rules="loginRules" :model="loginForm">
           <el-form-item prop="mobile">
-              <el-input v-model="loginForm.mobile" placeholder="请输入手机号"></el-input>
+              <el-input v-model="loginForm.mobile" placeholder="请输入手机号" ></el-input>
           </el-form-item>
           <el-form-item prop="code">
-              <el-input v-model="loginForm.code" placeholder="请输入验证码" style="width:240px"></el-input>
+              <el-input v-model="loginForm.code" placeholder="请输入验证码" style="width:240px" ></el-input>
               <el-button style="float:right">发送验证码</el-button>
           </el-form-item>
            <el-form-item>
@@ -36,8 +36,8 @@ export default {
     }
     return {
       loginForm: {
-        mobile: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       },
       loginRules: {
         mobile: [
@@ -54,17 +54,27 @@ export default {
   methods: {
     login () {
       // 对整个表单进行校验
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           // 提交成功发送axiso请求
-          this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
-            .then(res => {
-              console.log(res.data)
-              this.$router.push('/')
-            })
-            .catch(() => {
-              this.$message.error('手机号或验证码错误')
-            })
+          // this.$http.post('http://ttapi.research.itcast.cn/mp/v1_0/authorizations', this.loginForm)
+          //   .then(res => {
+          //     console.log(res.data)
+          //     // 保持会话状态 登录信息进行保存
+          //     window.sessionStorage.setItem('newxm', JSON.stringify(res.data.data))
+          //     this.$router.push('/')
+          //   })
+          //   .catch(() => {
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+          // 使用async来发送axios请求
+          try {
+            const res = await this.$http.post('authorizations', this.loginForm)
+            window.sessionStorage.setItem('newxm', JSON.stringify(res.data.data))
+            this.$router.push('/')
+          } catch (err) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
