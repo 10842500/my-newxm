@@ -12,6 +12,8 @@ import Zbd from '@/views/404'
 import Article from '@/views/article'
 // 导入素材管理页面
 import Image from '@/views/image'
+// 导入发布文章组件
+import Publish from '@/views/publish'
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
@@ -23,7 +25,9 @@ const router = new VueRouter({
         { name: 'welcome', path: '/', component: Welcome },
         { name: 'article', path: '/article', component: Article },
         // 素材管理内容
-        { name: 'Image', path: '/image', component: Image }
+        { name: 'Image', path: '/image', component: Image },
+        // 发布文章路由
+        { name: 'Publish', path: '/publish', component: Publish }
       ] },
     { name: 'login', path: '/login', component: Login },
     { name: 'zbd', path: '*', component: Zbd }
