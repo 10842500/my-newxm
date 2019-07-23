@@ -1,7 +1,7 @@
 <template>
 <div class="image-container">
 <div class="img-btn" @click="fn()">
-    <img src="../assets/images/default.png" alt=""></div>
+    <img :src="value||defaultImage" alt=""></div>
 <!-- 对话框 -->
 <el-dialog :visible.sync="dialogVisible" width="700px">
      <!-- v-model="activeName"  activeName是选项卡标签的name属性的值-->
@@ -42,7 +42,7 @@
   </el-tabs>
       <span slot="footer" class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="dialogVisible = false">确定</el-button>
+          <el-button type="primary" @click="confirminfo()">确定</el-button>
       </span>
 
 </el-dialog>
@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import defaultImage from '../assets/images/default.png'
 export default {
   name: 'my-image',
   data () {
@@ -70,6 +71,9 @@ export default {
       total: 0,
       // 选中的图片地址
       selectedImageUrl: null,
+      // 你选中的封面图
+      defaultImage,
+
       // 设置请求头
       headers: {
         // 设置请求头
@@ -80,7 +84,21 @@ export default {
 
     }
   },
+  // 父传子
+  props: ['value'],
   methods: {
+    // 封面图片功能
+    confirminfo () {
+      if (this.activeName === 'pub') {
+        // 如果等于pub则用素材库的图片做封面图
+        if (!this.selectedImageUrl) return this.$message.warning('请你选择图片')
+        this.$emit('input', this.selectedImageUrl)
+      } else {
+        if (!this.imageUrl) return this.$message.warning('请你选择图片')
+        this.$emit('input', this.imageUrl)
+      }
+      this.dialogVisible = false
+    },
     // 选中图片
     selectedImage (url) {
     // 思路 :class={selected:条件}
@@ -120,6 +138,10 @@ export default {
 </script>
 
 <style scoped lang="less">
+.image-container {
+  display: inline-block;
+  margin-right: 10px;
+}
 .img-item {
     height: 120px;
     width: 150px;
